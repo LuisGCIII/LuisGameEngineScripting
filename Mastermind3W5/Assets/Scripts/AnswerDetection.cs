@@ -6,12 +6,22 @@ using UnityEngine;
 
 public class AnswerDetection : MonoBehaviour
 {
-    
-
     void Start()
     {
 
     }
+
+    /// <summary>
+    /// Create four public GameObject arrays
+    /// currentRow holds the four positions that the Game Player clicks for their answers
+    /// answerKey holds the four positions that contains the secret code.
+    /// pins holds the two prefabs for correct position/color, or correct color only
+    /// hintGrid refers to the parent object of the HintGrid.
+    /// </summary>
+    public GameObject[] currentRow;
+    public GameObject[] answerKey;
+    public GameObject[] pins;
+    public GameObject hintGrid;
 
     void Update()
     {
@@ -55,10 +65,12 @@ public class AnswerDetection : MonoBehaviour
             if (currentMats[i].color == answerMats[i].color)
             {
                 answerValues[i] = 1;
+                InstantiateCorrectPin(hintGrid.transform.GetChild(i).transform);
             }
             else if (colorAnswers.Contains(currentMats[i].color))
             {
                 answerValues[i] = 0;
+                InstantiateWrongPin(hintGrid.transform.GetChild(i).transform);
             }
             else
             {
